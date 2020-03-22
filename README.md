@@ -34,3 +34,6 @@ image = "0.23.0"
 rand = "0.7.0"
 ```
  
+
+
+Daulet Batayev - March 2020
