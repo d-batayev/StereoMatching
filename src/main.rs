@@ -1,26 +1,20 @@
 use image::{self, imageops::*};
-use image::{GenericImage, GenericImageView, ImageBuffer, RgbImage, GrayImage, Luma};
+use image::{ ImageBuffer, GrayImage, Luma};
 
 mod stereo_random;
 
-const OCCLUSION: f64 = 1.8;
-
-enum Cases {
-    Matched,
-    UnmatchedI,
-    UnmatchedJ,
-}
+const OCCLUSION: f64 = 1.8; // different occlusion cost form the paper
+// to achieve better quality disparity maps
 
 fn match_cost(z1 :f64, z2 :f64) -> f64{
-    let zcap = (z1 + z2) / 2.0;
     (z2 - z1) * (z2 - z1) / 10.5
 }
 
 fn main() {
     stereo_random::main();
   
-    let image1 = image :: open("./Stereo Pairs/Pair 2/view1.png").unwrap().to_rgb();
-    let image2 = image :: open("./Stereo Pairs/Pair 2/view2.png").unwrap().to_rgb();
+    let image1 = image :: open("./Stereo Pairs/Pair 1/view1.png").unwrap().to_rgb();
+    let image2 = image :: open("./Stereo Pairs/Pair 1/view2.png").unwrap().to_rgb();
     let width = image1.dimensions().0 as usize;
     let height = image1.dimensions().1 as usize;
     
@@ -28,8 +22,6 @@ fn main() {
     let image2 = grayscale(&image2);
   
     let mut disparity_map : GrayImage = ImageBuffer::new(width as u32, height as u32);
-
-    let x = Cases::Matched;
 
     for a in 0..height{
         
@@ -72,7 +64,7 @@ fn main() {
     
         while i > 0  && j > 0{
             if decision_matrix[i][j] == 1{
-                disparity_map.put_pixel(i as u32 - 1, a as u32, Luma([((i as i32 - j as i32).abs() as u8).saturating_mul(4)]));
+                disparity_map.put_pixel(i as u32 - 1, a as u32, Luma([((i as i32 - j as i32).abs() as u8 + 20).saturating_mul(4)]));
                 i -= 1;
                 j -= 1;
             }
@@ -87,6 +79,6 @@ fn main() {
         }
     }
 
-    disparity_map.save("output/output_pair2.png").unwrap();
+    disparity_map.save("output/output_pair1.png").unwrap();
 
 }
