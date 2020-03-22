@@ -1,8 +1,8 @@
 # Implementing a Stereo Matching Algorithm
 ## Table of Contens
-* What is Stereo Matching and Why Do We Need It?
-* Algorithms Overview 
-* Requirements
+* ### What is Stereo Matching and Why Do We Need It?
+* ### Algorithms Overview 
+* ### Requirements
 
 ## What is Stereo Mathcing and Why Do We Need It?
 
@@ -21,16 +21,16 @@ To infer the depth of the image, we then implement the backward pass. Starting f
 * going left: if pixel j is unmatched;
 * going upper left: if pixels i and j match;
 
-The distance between pixel i and j (if they match) is linked to the depth and is called disparity. As an output of the algorithm, you should display the disparity map (showing the disparity for each pixel) going upper left: if pixels i and j match. The output of the algorithm is one disparity map generated from left and right views of the same scene.
+The distance between pixel i and j (if they match) is linked to the depth and is called disparity. As an output of the algorithm, you should display the disparity map (showing the disparity for each pixel). The output of the algorithm is one disparity map generated from left and right views of the same scene.
 
 The Random Dot Stereogram was also generated to better explain and understand the algorithm. (See Explanation directory)
 
 # Requirements
 
-The Algorithm was implemented in the Rust Language for learning purposes and because it is a compiled language. While Rust generates a disparity map for a pair of images in less than a second, Python3 takes more than 10 minutes for the samepair of images. Rust has a very convenient image processing library (image), which was used to manipulate the images. Rand library was also used to generate the random dot stereograms. Therefore, to run the program, add the following dependencies to your [Cargo.toml]:
+The Algorithm was implemented in the Rust Language for learning purposes and because it is a compiled language. While Rust generates a disparity map for a pair of images in less than a second, Python3 takes more than 10 minutes for the samepair of images. Rust has a very convenient image processing library (image), which was used to manipulate the images. Rand library was also used to generate the random dot stereograms. Therefore, to run the program, add the following dependencies to your Cargo.toml:
 
-''' bash
+``` bash
 image = "0.23.0"
 rand = "0.7.0"
-'''
+```
  
