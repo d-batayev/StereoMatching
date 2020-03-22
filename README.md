@@ -12,9 +12,9 @@ When our eyes view a scene, the left and right eyes see slightly different thing
 The attached paper http://www.bmva.org/bmvc/1992/bmvc-92-035.pdf proposes using a dynamic programming algorithm to perform stereo matching. Note the following points:
 * The algorithm is only focused on grayscale images (no alpha channel and also only one scalar value by pixel intensity). Therefore, vectors and matrices collapse to scalar values in that specific case (specifically, the covariance matrix becomes the variance).
 * As described in the paper, we first do the forward pass and build the cost matrix of matching pixels in each row. One pixel can only match to at most one pixel in the same row in the other image. There are three cases for matching:
- * Two pixels do match
- * The first pixel is occluded and the second pixel is unmached
- * The second pixel is occluded and the first pixel is unmached
+ * Sub Two pixels do match
+ * Sub The first pixel is occluded and the second pixel is unmached
+ * Sub The second pixel is occluded and the first pixel is unmached
 
 To infer the depth of the image, we then implement the backward pass. Starting from i=M and j=N (and until i=0 and j=0), you will move along one of the three arrows starting from the current point:
 * going up: if pixel i is unmatched;
